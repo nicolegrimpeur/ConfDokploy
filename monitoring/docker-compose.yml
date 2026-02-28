@@ -61,6 +61,7 @@ services:
     restart: unless-stopped
     volumes:
       - "/:/host:ro,rslave"
+      - "/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro"
     command:
       - "--path.rootfs=/host"
       - "--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)"
