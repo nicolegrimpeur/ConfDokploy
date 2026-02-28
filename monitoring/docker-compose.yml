@@ -64,6 +64,8 @@ services:
     command:
       - "--path.rootfs=/host"
       - "--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)"
+      - "--collector.systemd"
+      - "--collector.processes"
 
   cadvisor:
     image: ghcr.io/google/cadvisor:latest
