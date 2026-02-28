@@ -11,8 +11,6 @@ services:
     image: prom/prometheus:latest
     container_name: prometheus
     networks: [dokploy-network]
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     ports:
       - "9090"
     volumes:
