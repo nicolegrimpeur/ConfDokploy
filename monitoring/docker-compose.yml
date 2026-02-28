@@ -1,5 +1,6 @@
 networks:
-  monitoring:
+  dokploy-network:
+    external: true
 
 volumes:
   prometheus_data:
@@ -9,7 +10,7 @@ services:
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
-    networks: [monitoring]
+    networks: [dokploy-network]
     ports:
       - "9090"
     volumes:
@@ -38,7 +39,7 @@ services:
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
-    networks: [monitoring]
+    networks: [dokploy-network]
     ports:
       - "3000"
     volumes:
@@ -67,7 +68,7 @@ services:
   cadvisor:
     image: ghcr.io/google/cadvisor:latest
     container_name: cadvisor
-    networks: [monitoring]
+    networks: [dokploy-network]
     ports:
       - "8080"
     restart: unless-stopped
