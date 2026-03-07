@@ -1,7 +1,3 @@
-networks:
-  dokploy-network:
-    external: true
-
 volumes:
   prometheus_data:
   grafana_data:
@@ -10,7 +6,6 @@ services:
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
-    networks: [dokploy-network]
     ports:
       - "9090"
     volumes:
@@ -39,7 +34,6 @@ services:
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
-    networks: [dokploy-network]
     ports:
       - "3000"
     volumes:
@@ -56,7 +50,6 @@ services:
   node-exporter:
     image: prom/node-exporter:latest
     container_name: node-exporter
-    networks: [dokploy-network]
     ports:
       - "9100"
     restart: unless-stopped
@@ -64,7 +57,7 @@ services:
       - /run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
-      - /:/rootfs:ro
+      - '/:/host:ro,rslave'
     command:
       - "--path.rootfs=/host"
       - "--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)"
@@ -74,7 +67,6 @@ services:
   cadvisor:
     image: ghcr.io/google/cadvisor:latest
     container_name: cadvisor
-    networks: [dokploy-network]
     ports:
       - "8080"
     restart: unless-stopped
