@@ -72,18 +72,17 @@ services:
       - "--collector.systemd"
       - "--collector.processes"
 
-  # Optional: cAdvisor for container monitoring
-  # cadvisor:
-  #   image: ghcr.io/google/cadvisor:latest
-  #   container_name: cadvisor
-  #   ports:
-  #     - "8080"
-  #   restart: unless-stopped
-  #   volumes:
-  #     - /:/rootfs:ro
-  #     - /var/run:/var/run:ro
-  #     - /sys:/sys:ro
-  #     - /var/lib/docker/:/var/lib/docker:ro
-  #   depends_on:
-  #     prometheus:
-  #       condition: service_healthy
+  cadvisor:
+    image: ghcr.io/google/cadvisor:latest
+    container_name: cadvisor
+    ports:
+      - "8080"
+    restart: unless-stopped
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    depends_on:
+      prometheus:
+        condition: service_healthy
