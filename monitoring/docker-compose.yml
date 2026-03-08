@@ -79,7 +79,6 @@ services:
       - "8080"
     restart: unless-stopped
     command:
-      - --housekeeping_interval=30s
       - --disable_metrics=percpu,sched,tcp,udp,disk,diskIO
     volumes:
       - /:/rootfs:ro
