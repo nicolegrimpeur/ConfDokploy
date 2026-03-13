@@ -6,7 +6,8 @@ services:
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
-    network_mode: host
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus_data:/prometheus
@@ -33,8 +34,6 @@ services:
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     ports:
       - "3000"
     volumes:
