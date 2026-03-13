@@ -58,8 +58,10 @@ services:
   node-exporter:
     image: prom/node-exporter:latest
     container_name: node-exporter
-    ports:
-      - "9100"
+    network_mode: host
+    pid: host
+    # ports:
+    #   - "9100"
     restart: unless-stopped
     volumes:
       - /run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro
@@ -68,6 +70,8 @@ services:
       - '/:/host:ro,rslave'
     command:
       - "--path.rootfs=/host"
+      - "--path.procfs=/host/proc"
+      - "--path.sysfs=/host/sys"
       - "--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)"
       - "--collector.systemd"
       - "--collector.processes"
