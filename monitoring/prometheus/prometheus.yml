@@ -10,4 +10,4 @@ scrape_configs:
       - targets: ["cadvisor:8080"]
   - job_name: traefik
     static_configs:
-      - targets: ["localhost:8082"]
+      - targets: ["dokploy-traefik:8082"]
