@@ -3,9 +3,8 @@ global:
 
 scrape_configs:
   - job_name: "node"
-    metrics_path: /metrics
     static_configs:
-      - targets: ["192.168.0.128:9100"]
+      - targets: ["http:///192.168.0.128:9100/metrics"]
   - job_name: "cadvisor"
     static_configs:
       - targets: ["cadvisor:8080"]
