@@ -88,3 +88,18 @@ services:
     depends_on:
       prometheus:
         condition: service_healthy
+
+  snmp-exporter:
+    build: ./snmp
+    container_name: snmp-exporter
+    ports:
+      - "9116:9116"
+    volumes:
+      - ./snmp/auth.yml.template:/etc/snmp_exporter/auth.yml.template
+    command:
+      - "--config.file=/etc/snmp_exporter/snmp.yml"
+      - "--config.file=/etc/snmp_exporter/auth.yml"
+    restart: unless-stopped
+    depends_on:
+      prometheus:
+        condition: service_healthy

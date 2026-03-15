@@ -1,0 +1,9 @@
+auths:
+  synology:
+    version: 3
+    username: ${SNMP_USER}
+    security_level: authPriv
+    password: ${SNMP_AUTH_PASS}
+    auth_protocol: SHA
+    priv_protocol: AES
+    priv_password: ${SNMP_PRIV_PASS}
