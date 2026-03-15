@@ -94,10 +94,13 @@ services:
     container_name: snmp-exporter
     ports:
       - "9116:9116"
+    volumes:
+      - ./snmp/auth.yml:/etc/snmp_exporter/auth.yml:ro
+      - ./snmp/snmp.yml:/etc/snmp_exporter/snmp.yml:ro
     command:
       - "--config.expand-environment-variables"
       - "--config.file=/etc/snmp_exporter/auth.yml"
-      - "--auth.file=/etc/snmp_exporter/snmp.yml"
+      - "--config.file=/etc/snmp_exporter/snmp.yml"
     restart: unless-stopped
     depends_on:
       prometheus:
