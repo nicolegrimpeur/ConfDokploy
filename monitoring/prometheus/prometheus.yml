@@ -11,3 +11,18 @@ scrape_configs:
   - job_name: traefik
     static_configs:
       - targets: ["host.docker.internal:8082"]
+  - job_name: synology
+    metrics_path: /snmp
+    params:
+      module: [synology]
+      auth: [synology]
+    static_configs:
+      - targets:
+          - 192.168.0.222
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: snmp-exporter:9116
