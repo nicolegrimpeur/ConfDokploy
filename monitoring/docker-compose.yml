@@ -90,14 +90,12 @@ services:
         condition: service_healthy
 
   snmp-exporter:
-    image: prom/snmp-exporter:latest
+    build:
+      context: ./snmp
+      dockerfile: Dockerfile
     container_name: snmp-exporter
     ports:
       - "9116:9116"
-    entrypoint: ["/entrypoint.sh"]
-    volumes:
-      - ./snmp/entrypoint.sh:/entrypoint.sh
-      - ./snmp/auth.yml.template:/etc/snmp_exporter/auth.yml.template
     command:
       - "--config.file=/etc/snmp_exporter/auth.yml"
     restart: unless-stopped
