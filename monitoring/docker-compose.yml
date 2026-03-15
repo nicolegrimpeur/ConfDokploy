@@ -90,14 +90,15 @@ services:
         condition: service_healthy
 
   snmp-exporter:
-    build: ./snmp
+    image: prom/snmp-exporter:latest
     container_name: snmp-exporter
     ports:
       - "9116:9116"
+    entrypoint: ["/entrypoint.sh"]
     volumes:
+      - ./snmp/entrypoint.sh:/entrypoint.sh
       - ./snmp/auth.yml.template:/etc/snmp_exporter/auth.yml.template
     command:
-      - "--config.file=/etc/snmp_exporter/snmp.yml"
       - "--config.file=/etc/snmp_exporter/auth.yml"
     restart: unless-stopped
     depends_on:
