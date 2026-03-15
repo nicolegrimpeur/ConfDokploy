@@ -94,6 +94,10 @@ services:
     container_name: snmp-exporter
     ports:
       - "9116:9116"
+    environment:
+      - SNMP_USER=${SNMP_USER}
+      - SNMP_AUTH_PASS=${SNMP_AUTH_PASS}
+      - SNMP_PRIV_PASS=${SNMP_PRIV_PASS}
     volumes:
       - ./snmp/auth.yml:/etc/snmp_exporter/auth.yml:ro
       - ./snmp/snmp.yml:/etc/snmp_exporter/snmp.yml:ro
