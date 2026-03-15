@@ -90,14 +90,14 @@ services:
         condition: service_healthy
 
   snmp-exporter:
-    build:
-      context: ./snmp
-      dockerfile: Dockerfile
+    image: prom/snmp-exporter:latest
     container_name: snmp-exporter
     ports:
       - "9116:9116"
     command:
+      - "--config.expand-environment-variables"
       - "--config.file=/etc/snmp_exporter/auth.yml"
+      - "--auth.file=/etc/snmp_exporter/snmp.yml"
     restart: unless-stopped
     depends_on:
       prometheus:
