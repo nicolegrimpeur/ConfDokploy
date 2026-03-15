@@ -1,4 +1,4 @@
-FROM prom/prom/snmp-exporter:latest
+FROM prom/snmp-exporter:latest
 
 COPY auth.yml.template /etc/snmp_exporter/auth.yml.template
 COPY entrypoint.sh /entrypoint.sh
