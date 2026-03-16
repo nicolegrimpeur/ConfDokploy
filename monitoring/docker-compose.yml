@@ -78,7 +78,7 @@ services:
     image: ghcr.io/google/cadvisor:latest
     container_name: cadvisor
     ports:
-      - "8080:8080"
+      - "8080"
     restart: unless-stopped
     volumes:
       - /:/rootfs:ro
@@ -93,7 +93,7 @@ services:
     image: prom/snmp-exporter:latest
     container_name: snmp-exporter
     ports:
-      - "9116:9116"
+      - "9116"
     environment:
       - SNMP_USER=${SNMP_USER}
       - SNMP_AUTH_PASS=${SNMP_AUTH_PASS}
