@@ -1,6 +1,10 @@
 volumes:
   prometheus_data:
+    external: true
+    name: prometheus_data
   grafana_data:
+    external: true
+    name: grafana_data
 
 services:
   prometheus:

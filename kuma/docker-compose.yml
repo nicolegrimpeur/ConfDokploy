@@ -1,5 +1,7 @@
 volumes:
   data:
+    external: true
+    name: uptime-kuma_data
 
 services:
   uptime-kuma:
