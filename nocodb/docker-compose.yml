@@ -38,4 +38,4 @@ volumes:
     name: nocodb-postgres_data
   nocodb-data:
     external: true
-    name: nocodb_data
+    name: nocodb-data
