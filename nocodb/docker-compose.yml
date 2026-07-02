@@ -34,4 +34,8 @@ services:
 
 volumes:
   nocodb-postgres-data:
+    external: true
+    name: nocodb-postgres_data
   nocodb-data:
+    external: true
+    name: nocodb_data
