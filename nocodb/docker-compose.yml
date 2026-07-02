@@ -28,7 +28,7 @@ services:
       NC_SITE_URL: ${SITE_URL}
       NC_DISABLE_TELE: "true"
     ports:
-      - "8080:8080"
+      - "8080"
     volumes:
       - nocodb-data:/usr/app/data
 
