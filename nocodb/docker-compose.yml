@@ -1,0 +1,37 @@
+services:
+  nocodb-postgres:
+    image: postgres:16-alpine
+    container_name: nocodb-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: nocodb
+      POSTGRES_USER: nocodb
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - nocodb-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nocodb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  nocodb:
+    image: nocodb/nocodb:2026.06.1
+    container_name: nocodb
+    restart: unless-stopped
+    depends_on:
+      nocodb-postgres:
+        condition: service_healthy
+    environment:
+      NC_DB: "pg://nocodb-postgres:5432?u=nocodb&p=${POSTGRES_PASSWORD}&d=nocodb"
+      NC_AUTH_JWT_SECRET: ${JWT_SECRET}
+      NC_SITE_URL: ${SITE_URL}
+      NC_DISABLE_TELE: "true"
+    ports:
+      - "8080:8080"
+    volumes:
+      - nocodb-data:/usr/app/data
+
+volumes:
+  nocodb-postgres-data:
+  nocodb-data:
