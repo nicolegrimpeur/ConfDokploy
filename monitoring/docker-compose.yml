@@ -11,7 +11,7 @@ volumes:
 
 services:
   prometheus:
-    image: prom/prometheus:latest
+    image: prom/prometheus:v3.15.1
     container_name: prometheus
     extra_hosts:
       - "host.docker.internal:host-gateway"
@@ -39,7 +39,7 @@ services:
       start_period: 10s
 
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana:12.4.14
     container_name: grafana
     ports:
       - "3000"
@@ -63,7 +63,7 @@ services:
         condition: service_healthy
 
   node-exporter:
-    image: prom/node-exporter:latest
+    image: prom/node-exporter:v1.12.1
     container_name: node-exporter
     network_mode: host
     pid: host
@@ -82,7 +82,7 @@ services:
       - "--collector.processes"
 
   cadvisor:
-    image: ghcr.io/google/cadvisor:latest
+    image: ghcr.io/google/cadvisor:v0.60.6
     container_name: cadvisor
     ports:
       - "8080"
@@ -97,7 +97,7 @@ services:
         condition: service_healthy
 
   loki:
-    image: grafana/loki:latest
+    image: grafana/loki:3.7.9
     container_name: loki
     ports:
       - "3100:3100"
@@ -108,7 +108,7 @@ services:
     restart: unless-stopped
 
   snmp-exporter:
-    image: prom/snmp-exporter:latest
+    image: prom/snmp-exporter:v0.31.0
     container_name: snmp-exporter
     ports:
       - "9116"

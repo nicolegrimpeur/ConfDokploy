@@ -1,0 +1,31 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "timezone": "Europe/Paris",
+  "ignoreTests": true,
+  "packageRules": [
+    {
+      "description": "Fusion automatique des versions mineures et patch",
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "description": "Une seule PR pour toute la stack monitoring",
+      "matchFileNames": ["monitoring/**"],
+      "groupName": "stack monitoring"
+    },
+    {
+      "description": "NocoDB suit un versionnage par date (AAAA.MM.x) : on fusionne tout automatiquement, y compris le changement d'année",
+      "matchPackageNames": ["nocodb/nocodb"],
+      "automerge": true
+    },
+    {
+      "description": "Une version majeure de Postgres nécessite une migration des données",
+      "matchPackageNames": ["postgres"],
+      "matchUpdateTypes": ["major"],
+      "prBodyNotes": [
+        "⚠️ **Version majeure de Postgres** : les données existantes ne sont pas compatibles. Fais un `pg_dump` avant, puis restaure-le dans le nouveau conteneur après la fusion."
+      ]
+    }
+  ]
+}
