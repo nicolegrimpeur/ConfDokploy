@@ -1,6 +1,6 @@
 services:
   nocodb-postgres:
-    image: postgres:16.15-alpine
+    image: postgres:18.6-alpine
     container_name: nocodb-postgres
     restart: unless-stopped
     environment:
@@ -8,9 +8,9 @@ services:
       POSTGRES_USER: nocodb
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - nocodb-postgres-data:/var/lib/postgresql/data
+      - nocodb-postgres-data:/var/lib/postgresql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U nocodb"]
+      test: ["CMD-SHELL", "pg_isready -U nocodb -d nocodb"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -35,7 +35,7 @@ services:
 volumes:
   nocodb-postgres-data:
     external: true
-    name: nocodb-postgres_data
+    name: nocodb-postgres_data-v18
   nocodb-data:
     external: true
     name: nocodb-data
