@@ -1,0 +1,31 @@
+services:
+  stirling-pdf:
+    image: stirlingtools/stirling-pdf:3.2.2
+    container_name: stirling-pdf
+    restart: unless-stopped
+    ports:
+      - "8080"
+    environment:
+      TZ: Europe/Paris
+      # Interface
+      SYSTEM_DEFAULTLOCALE: fr-FR
+      SYSTEM_BACKENDURL: ${STIRLING_URL}
+      SYSTEM_FRONTENDURL: ${STIRLING_URL}
+      # Authentification (compte admin créé uniquement au premier démarrage)
+      SECURITY_ENABLELOGIN: "true"
+      SECURITY_INITIALLOGIN_USERNAME: ${STIRLING_ADMIN_USER:?}
+      SECURITY_INITIALLOGIN_PASSWORD: ${STIRLING_ADMIN_PASSWORD:?}
+      # Taille maximale des fichiers
+      SYSTEM_FILEUPLOADLIMIT: 100MB
+    volumes:
+      - configs:/configs
+      - tessdata:/usr/share/tessdata
+    mem_limit: 4g
+
+volumes:
+  configs:
+    external: true
+    name: stirling-pdf_configs
+  tessdata:
+    external: true
+    name: stirling-pdf_tessdata
