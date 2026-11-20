@@ -63,7 +63,7 @@ services:
         condition: service_healthy
 
   node-exporter:
-    image: prom/node-exporter:v1.12.1
+    image: prom/node-exporter:v1.13.1
     container_name: node-exporter
     network_mode: host
     pid: host
